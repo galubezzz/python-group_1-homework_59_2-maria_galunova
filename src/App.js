@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
+import Joke from "./components/Joke/Joke"
 
 class App extends Component {
     state = {
@@ -23,7 +24,7 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                {this.state.joke.value}
+                <Joke text={this.state.joke.value} />
             </div>
         );
     }
