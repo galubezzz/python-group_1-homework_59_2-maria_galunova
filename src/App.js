@@ -10,7 +10,7 @@ class App extends Component {
         super(props);
         this.getNewJoke = this.getNewJoke.bind(this);
         this.state = {};
-        this.state.joke = [];
+        this.state.jokes = [];
         this.state.amount = 1;
     }
 
@@ -23,24 +23,44 @@ class App extends Component {
     };
 
     getNewJoke(amount) {
+        const requests = [];
+
+        for (let i = 0; i < amount; i++) {
             const P_URL = 'https://api.chucknorris.io/jokes/random';
-            fetch(P_URL).then(response => {
-                if (response.ok) {
-                    return response.json();
-                }
-                throw new Error('Something went wrong with network request');
-            }).then(joke => {
-                this.setState({joke: joke});
-            }).catch(error => {
-                console.log(error);
-            });
-            console.log(this.state.joke.value)
+            const request = fetch(P_URL)
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw new Error('Something went wrong with network request');
+                });
+            requests.push(request);
+        }
+
+        Promise.all(requests).then(jokes => {
+            console.log("!!!");
+            console.log(jokes);
+            this.setState({jokes: jokes});
+        }).catch(error => {
+            console.log(error);
+        });
+        console.log(this.state.jokes.value);
     }
 
     render() {
+        const jokes = (
+            <div>
+                {
+                  this.state.jokes.map((joke) => {
+                    return <Joke text={joke.value}/>
+                  }
+                  )
+                }
+            </div>
+          );
         return (
             <div className="App">
-                <Joke text={this.state.joke.value}/>
+                {jokes}
                 <Amount change={this.addAmount}/>
                 <Button new={this.getNewJoke} amount={this.state.amount}/>
             </div>
