@@ -4,7 +4,7 @@ class Joke extends Component {
 
     render() {
         return (
-            <div>
+            <div className="m-1">
                 {this.props.text}
             </div>
         );
