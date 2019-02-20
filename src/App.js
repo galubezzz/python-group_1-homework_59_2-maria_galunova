@@ -61,8 +61,8 @@ class App extends Component {
         return (
             <div className="App">
                 {jokes}
-                <Amount change={this.addAmount}/>
-                <Button new={this.getNewJoke} amount={this.state.amount}/>
+                <Amount change={this.addAmount} />
+                <Button new={this.getNewJoke}/>
             </div>
         );
     }
