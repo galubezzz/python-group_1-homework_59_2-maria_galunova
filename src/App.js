@@ -38,31 +38,28 @@ class App extends Component {
         }
 
         Promise.all(requests).then(jokes => {
-            console.log("!!!");
-            console.log(jokes);
             this.setState({jokes: jokes});
         }).catch(error => {
             console.log(error);
         });
-        console.log(this.state.jokes.value);
     }
 
     render() {
         const jokes = (
             <div>
                 {
-                  this.state.jokes.map((joke) => {
-                    return <Joke text={joke.value}/>
-                  }
-                  )
+                    this.state.jokes.map((joke) => {
+                            return <Joke text={joke.value}/>
+                        }
+                    )
                 }
             </div>
-          );
+        );
         return (
             <div className="App">
                 {jokes}
-                <Amount change={this.addAmount} />
-                <Button new={this.getNewJoke}/>
+                <Amount change={this.addAmount}/>
+                <Button new={this.getNewJoke} amount={this.state.amount}/>
             </div>
         );
     }
